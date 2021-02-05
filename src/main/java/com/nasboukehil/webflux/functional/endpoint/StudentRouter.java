@@ -20,8 +20,9 @@ public class StudentRouter {
 															studentHandler::getStudent);
 	}
 	
+	@Bean
 	RouterFunction<ServerResponse> returnAllStudents() {
-		return RouterFunctions.route(RequestPredicates.GET("/api/f/getAllStudents/"), 
+		return RouterFunctions.route(RequestPredicates.GET("/api/f/getAllStudents"), 
 															studentHandler::getAllStudent);
 	}
 }
