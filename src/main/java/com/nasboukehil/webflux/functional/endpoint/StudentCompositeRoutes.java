@@ -1,6 +1,7 @@
 package com.nasboukehil.webflux.functional.endpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -16,6 +17,7 @@ public class StudentCompositeRoutes {
 	@Autowired
 	private StudentMongoRepository studentMongoRepository;
 	
+	@Bean
 	RouterFunction<ServerResponse> compositeRoutes() {
 		RouterFunction<ServerResponse> studentResponse = RouterFunctions.
 															route(RequestPredicates.GET("/api/f/composite/getStudent/{rollNo}"), 
@@ -27,7 +29,7 @@ public class StudentCompositeRoutes {
 																	})
 														.and(
 															RouterFunctions.
-															route(RequestPredicates.GET("/api/f/composite/getAllStudent"),
+															route(RequestPredicates.GET("/api/f/composite/getAllStudents"),
 																	serverRequest ->
 																		ServerResponse.ok()
 																			.body(studentMongoRepository.findAll(), Student.class)
@@ -35,6 +37,7 @@ public class StudentCompositeRoutes {
 																	)
 															);
 		return studentResponse;
+		
 	}
 
 	private int getInt(String intStr) {
